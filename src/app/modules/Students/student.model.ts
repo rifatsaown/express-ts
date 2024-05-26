@@ -113,4 +113,3 @@ const studentSchema = new Schema<IStudent>({
     },
   },
 });
-
