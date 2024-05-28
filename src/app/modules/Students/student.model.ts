@@ -71,6 +71,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
   },
 });
 
+// Define the student schema
 const studentSchema = new Schema<IStudent>(
   {
     id: {
@@ -115,4 +116,5 @@ const studentSchema = new Schema<IStudent>(
   { timestamps: true },
 );
 
-const Student = model<IStudent>('Student', studentSchema);
+// Create the student model
+export const StudentModel = model<IStudent>('Student', studentSchema);

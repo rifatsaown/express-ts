@@ -6,7 +6,7 @@ export interface IGuardian {
 
 export interface IName {
   firstName: string;
-  middleName: string;
+  middleName?: string;
   lastName: string;
 }
 
