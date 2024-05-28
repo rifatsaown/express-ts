@@ -3,9 +3,8 @@ import path from 'path';
 
 // Load environment variables from .env file
 const envPath = path.join(process.cwd(), '/.env');
-dotenv.config({ path: envPath  });
+dotenv.config({ path: envPath });
 console.log('envPath', envPath);
-
 
 // Export configuration object
 export default {
