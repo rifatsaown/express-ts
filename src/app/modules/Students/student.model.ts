@@ -10,14 +10,14 @@ import {
 const nameSchema = new Schema<IName>({
   firstName: {
     type: String,
-    required: true,
+    required: [true, 'First name is required'],
   },
   middleName: {
     type: String,
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, 'Last name is required'],
   },
 });
 
@@ -77,12 +77,19 @@ const studentSchema = new Schema<IStudent>(
     id: {
       type: String,
       required: true,
+      unique: true,
     },
-    name: nameSchema,
+    name: {
+      type: nameSchema,
+      required: true,
+    },
     gender: {
       type: String,
       enum: ['male', 'Female'],
-      required: true,
+      required: [
+        true,
+        'Gender is required and should be either male or female, {VALUE} is not valid.',
+      ],
     },
     dateOfBirth: {
       type: String,
@@ -108,10 +115,21 @@ const studentSchema = new Schema<IStudent>(
       type: String,
       enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
     },
-    presentAddress: addressSchema,
-    permanentAddress: addressSchema,
-    guardian: guardianSchema,
-    localGuardian: localGuardianSchema,
+    presentAddress: {
+      type: addressSchema,
+      required: true,
+    },
+    permanentAddress: {
+      type: addressSchema,
+      required: true,
+    },
+    guardian: {
+      type: guardianSchema,
+      required: true,
+    },
+    localGuardian: {
+      type: localGuardianSchema,
+    },
   },
   { timestamps: true },
 );
