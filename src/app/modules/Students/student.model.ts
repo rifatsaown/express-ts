@@ -5,6 +5,8 @@ import {
   ILocalGuardian,
   IName,
   IStudent,
+  IStudentMethods,
+  IStudentModel,
 } from './student.interface';
 
 const nameSchema = new Schema<IName>({
@@ -72,7 +74,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 });
 
 // Define the student schema
-const studentSchema = new Schema<IStudent>(
+const studentSchema = new Schema<IStudent, IStudentModel, IStudentMethods>(
   {
     id: {
       type: String,
@@ -129,5 +131,13 @@ const studentSchema = new Schema<IStudent>(
   { timestamps: true },
 );
 
+// make a method in the schema
+studentSchema.methods.isUserExist = async (id: string) => {
+  return await StudentModel.findOne({ id });
+};
+
 // Create the student model
-export const StudentModel = model<IStudent>('Student', studentSchema);
+export const StudentModel = model<IStudent, IStudentModel>(
+  'Student',
+  studentSchema,
+);

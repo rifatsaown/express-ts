@@ -1,8 +1,15 @@
 import { IStudent } from './student.interface';
 import { StudentModel } from './student.model';
 
-const createStudentIntoDB = async (student: IStudent) => {
-  const result = await StudentModel.create(student);
+const createStudentIntoDB = async (studentData: IStudent) => {
+  // const result = await StudentModel.create(student); // static method
+  const student = new StudentModel(studentData);
+
+  if ((await student.isUserExist(studentData.id)) !== null) {
+    throw new Error('Student already exists');
+  }
+
+  const result = await student.save(); // instance method
   return result;
 };
 
@@ -15,7 +22,6 @@ const getStudentByIdFromDB = async (id: string) => {
   const result = await StudentModel.findOne({ id });
   return result;
 };
-
 
 export const StudentServices = {
   createStudentIntoDB,

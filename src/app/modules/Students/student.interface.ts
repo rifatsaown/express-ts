@@ -1,3 +1,4 @@
+import { Model } from 'mongoose';
 export interface IName {
   firstName: string;
   middleName?: string;
@@ -39,3 +40,10 @@ export interface IStudent {
   guardian: IGuardian;
   localGuardian?: ILocalGuardian;
 }
+
+// Define the methods that will be available on the model
+export interface IStudentMethods {
+  isUserExist: (id: string) => Promise<IStudent | null>;
+}
+
+export type IStudentModel = Model<IStudent,{}, IStudentMethods>;
