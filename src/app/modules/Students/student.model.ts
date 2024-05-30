@@ -5,7 +5,6 @@ import {
   ILocalGuardian,
   IName,
   IStudent,
-  IStudentMethods,
   IStudentModel,
 } from './student.interface';
 
@@ -74,7 +73,7 @@ const localGuardianSchema = new Schema<ILocalGuardian>({
 });
 
 // Define the student schema
-const studentSchema = new Schema<IStudent, IStudentModel, IStudentMethods>(
+const studentSchema = new Schema<IStudent, IStudentModel>(
   {
     id: {
       type: String,
@@ -131,10 +130,28 @@ const studentSchema = new Schema<IStudent, IStudentModel, IStudentMethods>(
   { timestamps: true },
 );
 
-// make a method in the schema
-studentSchema.methods.isUserExist = async (id: string) => {
+// pre save hook
+studentSchema.pre('save', async function (next) {
+  const student = this;
+  if (student.isModified('id')) {
+    const isExist = await StudentModel.isUserExist(student.id);
+    if (isExist) {
+      throw new Error('Student already exists');
+    }
+  }
+  next();
+});
+
+// for crearing static method
+studentSchema.statics.isUserExist = async (id: string) => {
   return await StudentModel.findOne({ id });
 };
+
+/*----------------------------------------------- 
+// make a custom instance method in the schema
+studentSchema.methods.isUserExist = async (id: string) => {
+  return await StudentModel.findOne({ id });
+}; -------------------------------------------------*/
 
 // Create the student model
 export const StudentModel = model<IStudent, IStudentModel>(
