@@ -10,14 +10,14 @@ import {
 const nameSchema = new Schema<IName>({
   firstName: {
     type: String,
-    required: [true, 'First name is required'],
+    required: true,
   },
   middleName: {
     type: String,
   },
   lastName: {
     type: String,
-    required: [true, 'Last name is required'],
+    required: true,
   },
 });
 
@@ -85,11 +85,6 @@ const studentSchema = new Schema<IStudent>(
     },
     gender: {
       type: String,
-      enum: ['male', 'Female'],
-      required: [
-        true,
-        'Gender is required and should be either male or female, {VALUE} is not valid.',
-      ],
     },
     dateOfBirth: {
       type: String,

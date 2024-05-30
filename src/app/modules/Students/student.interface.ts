@@ -1,9 +1,3 @@
-export interface IGuardian {
-  name: string;
-  relation: string;
-  phone: string;
-}
-
 export interface IName {
   firstName: string;
   middleName?: string;
@@ -18,10 +12,16 @@ export interface IAddress {
   zip: string;
 }
 
-export interface ILocalGuardian {
+export interface IGuardian {
   name: string;
   relation: string;
   phone: string;
+}
+
+export interface ILocalGuardian {
+  name?: string;
+  relation?: string;
+  phone?: string;
 }
 
 export interface IStudent {
