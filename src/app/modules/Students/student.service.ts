@@ -2,7 +2,6 @@ import { IStudent } from './student.interface';
 import { StudentModel } from './student.model';
 
 const createStudentIntoDB = async (studentData: IStudent) => {
-
   /* -----------------------------------------------------
   // static method
   // if (StudentModel.isUserExist(studentData.id) !== null) {
