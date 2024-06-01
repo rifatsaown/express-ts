@@ -18,7 +18,11 @@ const createStudent = async (req: Request, res: Response) => {
     console.log('Error creating student', error);
     res
       .status(500)
-      .json({ success: false, message: (error as Error).message || 'Error creating student', error });
+      .json({
+        success: false,
+        message: (error as Error).message || 'Error creating student',
+        error,
+      });
   }
 };
 
