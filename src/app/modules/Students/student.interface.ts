@@ -41,7 +41,6 @@ export interface IStudent {
   localGuardian?: ILocalGuardian;
 }
 
-
 // for crearing static method
 export interface IStudentModel extends Model<IStudent> {
   isUserExist(id: string): Promise<IStudent | null>;
